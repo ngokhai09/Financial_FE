@@ -23,7 +23,7 @@ export class ShowWalletComponent implements OnInit {
 
   showWallet() {
     this.walletService.findAll().subscribe(wallets => {
-      this.wallets = wallets;
+      this.wallets = wallets.data.data;
     })
     this.router.navigate(['/wallet/' + localStorage.getItem('ID_WALLET')]).then();
   }

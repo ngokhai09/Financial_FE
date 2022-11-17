@@ -73,7 +73,7 @@
                          formControlName="status" value="2"
                          style="margin-left: 40px">
                   <img
-                    src="https://banner2.cleanpng.com/20180301/ade/kisspng-united-states-dollar-banknote-cartoon-vector-holding-dollar-5a979df432a946.2963528815198858122075.jpg"
+                    src="https://banner2.cleanpng.com/20180301/ade/kisspng-united-states-dollar-bankdescription-cartoon-vector-holding-dollar-5a979df432a946.2963528815198858122075.jpg"
                     style="width: 20px;height: 20px; margin-right: 5px; margin-left: 5px">
                   <label class="form-check-label" for="flexRadioDefault2">
                     Chi
@@ -128,7 +128,7 @@
                   </tr>
                   </thead>
                   <tbody
-                    *ngFor="let transaction of transactions |paginate: { itemsPerPage: 7, currentPage: p, totalItems: total }; let i = index">
+                    *ngFor="let transaction of transactions |paginate: { itemsPerPage: 7, currentPage: p, totalItems: totalSpend }; let i = index">
                   <tr>
                     <th scope="row">
                       <label class="form-label primary_checkbox d-flex me-12 ">{{i + 1}}</label>
@@ -139,16 +139,16 @@
                         <div class="flex-shrink-0">
                           <svg width="20" height="20">
                             <rect width="25" height="25"
-                                  [ngStyle]="{'fill':transaction.category.color,'stroke-width':'3px'}"/>
+                                  [ngStyle]="{'fill':transaction.categoryColor,'stroke-width':'3px'}"/>
                           </svg>
                         </div>
                         <div class="flex-grow-1 ms-3">
-                          <p>{{transaction.category.name}}</p>
+                          <p>{{transaction.categoryName}}</p>
                         </div>
                       </div>
                     </td>
                     <td>
-                      <p>{{transaction.totalSpent}}</p>
+                      <p>{{transaction.total}}</p>
                     </td>
                     <td>
                       <p class="nowrap">{{transaction.time}}</p>
@@ -159,7 +159,7 @@
                   </tr>
                   <tr id="{{i+1}}" [hidden]="isOpen">
                     <td style="text-align: center" colspan="3">
-                      Ghi chú : {{transaction.note}}
+                      Ghi chú : {{transaction.description}}
                     </td>
                     <td style="text-align: center">
                       <i class="fa-solid fa-x" style="color: red" (click)="confirmDelete(transaction.id)"></i>
@@ -228,9 +228,9 @@
                 <input type="date" id="date" formControlName="time"/>
               </td>
               <td style="width: 20px"></td>
-              <td class="tdTbale"> <input type="number" style="border: 1px solid #f1f3f5;" placeholder="Số tiền" formControlName="totalSpent"></td>
+              <td class="tdTbale"> <input type="number" style="border: 1px solid #f1f3f5;" placeholder="Số tiền" formControlName="total"></td>
               <td style="width: 20px"></td>
-              <td class="tdTbale"> <input type="text" style="border: 1px solid #f1f3f5 ;" placeholder="Ghi chú" formControlName="note"></td>
+              <td class="tdTbale"> <input type="text" style="border: 1px solid #f1f3f5 ;" placeholder="Ghi chú" formControlName="description"></td>
             </tr>
           </table>
         </div>
@@ -270,7 +270,7 @@
                 </div>
               </td>
               <td>
-                <p class="nowrap">{{incomeCategory.note}}</p>
+                <p class="nowrap">{{incomeCategory.description}}</p>
               </td>
               <td>
               </td>
@@ -297,7 +297,7 @@
                 </div>
               </td>
               <td>
-                <p class="nowrap">{{expenseCategory.note}}</p>
+                <p class="nowrap">{{expenseCategory.description}}</p>
               </td>
               <td>
               </td>

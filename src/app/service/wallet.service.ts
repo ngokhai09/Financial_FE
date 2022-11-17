@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 
-const API = 'http://localhost:8080/wallets'
+const API = 'http://localhost:8080/api/wallets'
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +31,8 @@ export class WalletService {
     return this.httpClient.put(API + '/edit-money-type/'+ id, wallet);
   }
 
-  delete(id: number, wallet: any): Observable<any> {
-    return this.httpClient.put(API + '/delete/' + id, wallet);
+  delete(id: number): Observable<any> {
+    return this.httpClient.delete(API + '/' + id);
   }
 
   updateStatus(id: number, wallet: any): Observable<any> {

@@ -5,7 +5,7 @@ export interface Wallet {
   id: number;
   name: string;
   icon: string;
-  amountMoney: number;
+  money: number;
   status: number ;
   moneyType: MoneyType;
   user: User;

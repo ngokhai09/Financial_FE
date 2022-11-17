@@ -19,7 +19,7 @@ export class ShowCategoryComponent implements OnInit {
   updateCategoryForm = new FormGroup({
     name: new FormControl(),
     status: new FormControl(),
-    note: new FormControl(),
+    description: new FormControl(),
     color: new FormControl(),
   })
   categories: Category[] = [];
@@ -39,26 +39,26 @@ export class ShowCategoryComponent implements OnInit {
 
   findAllTransaction(id: number) {
     this.transactionService.findAllTransactionsByCategoryID(id).subscribe(transactions => {
-      this.transactions = transactions;
-      console.log(this.transactions);
+      this.transactions = transactions.data;
       this.confirmDelete(id);
     })
   }
 
   getCategory(id: number) {
     this.categoryService.findById(id).subscribe(category => {
-      this.category = category;
+      this.category = category.data;
+      console.log(category.data)
       this.updateCategoryForm = new FormGroup({
-        name: new FormControl(category.name),
-        status: new FormControl(category.status + ""),
-        note: new FormControl(category.note),
-        color: new FormControl(category.color),
+        name: new FormControl(category.data.name),
+        status: new FormControl(category.data.status + ""),
+        description: new FormControl(category.data.description),
+        color: new FormControl(category.data.color),
       })
     })
   }
 
   confirmDelete(id: number) {
-    if (this.transactions.length < 1) {
+    if (this.transactions.length < 1 || typeof this.transactions.length == 'undefined') {
       let timerInterval: any;
       Swal.fire({
         title: '<h3 style="color: #5ec05e"><img src="https://img.pikbest.com/png-images/20190918/cartoon-snail-loading-loading-gif-animation_2734139.png!bw340" style="width: 100px;height: 100px"><\h3>',
@@ -104,8 +104,7 @@ export class ShowCategoryComponent implements OnInit {
 
   showCategory() {
     this.categoryService.findAll().subscribe(categories => {
-      this.categories = categories;
-      console.log(this.categories);
+      this.categories = categories.data.data;
     })
   }
 
@@ -113,11 +112,9 @@ export class ShowCategoryComponent implements OnInit {
     this.categoryUpdate = {
       name: this.updateCategoryForm.value.name,
       status: this.updateCategoryForm.value.status,
-      note: this.updateCategoryForm.value.note,
+      description: this.updateCategoryForm.value.description,
       color: this.updateCategoryForm.value.color,
-      user: {
-        id: localStorage.getItem('ID')
-      }
+      user_id: parseInt(localStorage.getItem('ID') || "")
     }
     console.log(this.category);
     this.categoryService.update(this.category.id, this.categoryUpdate).subscribe(() => {

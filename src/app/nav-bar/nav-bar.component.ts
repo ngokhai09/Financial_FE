@@ -19,7 +19,8 @@ export class NavBarComponent implements OnInit {
   findWallet() {
     // @ts-ignore
     this.walletService.findById(localStorage.getItem('ID_WALLET')).subscribe((wallet) => {
-      this.wallet = wallet;
+      this.wallet = wallet.data.data[0];
     })
   }
+
 }

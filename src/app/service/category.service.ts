@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 
-const API = 'http://localhost:8080/categories'
+const API = 'http://localhost:8080/api/categories'
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class CategoryService {
   }
 
   findByStatus(num: number): Observable<any> {
-    return this.httpClient.get(API + `/find-by-status/${num}/${localStorage.getItem('ID')}`);
+    return this.httpClient.get(API + `/find-by-status/${num}`);
   }
 
   save(category: any): Observable<any> {

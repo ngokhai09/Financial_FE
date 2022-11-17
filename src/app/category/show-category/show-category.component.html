@@ -30,7 +30,7 @@
                 <tbody *ngFor="let category of categories|paginate: { itemsPerPage: 7, currentPage: p, totalItems: total }; let i = index;">
                 <tr style="text-align: center">
                   <td scope="row"><a href="#" class="question_content">{{category.name}}</a></td>
-                  <td>{{category.note}}</td>
+                  <td>{{category.description}}</td>
                   <td *ngIf="category.status == '1'" style="color: rgba(0,0,0,0.68); size: 3px">Thu</td>
                   <td *ngIf="category.status == '2'" style="color: rgba(0,0,0,0.68); size: 3px">Chi</td>
                   <td>
@@ -86,7 +86,7 @@
           </div>
           <div class="input-group mb-3">
             <input type="textarea" class="form-control" placeholder="Ghi chú" aria-label="Username"
-                   aria-describedby="basic-addon1" style="margin-left: 60px; height: 90px;" formControlName="note">
+                   aria-describedby="basic-addon1" style="margin-left: 60px; height: 90px;" formControlName="description">
           </div>
           <div class="input-group mb-3" style="margin-top: 30px;margin-left: 15%">
             <div class="form-check">

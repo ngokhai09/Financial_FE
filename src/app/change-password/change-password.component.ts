@@ -55,7 +55,7 @@ export class ChangePasswordComponent implements OnInit {
         if(this.newPasswordForm.value.oldPassword === localStorage.getItem('PASS')) {
           if (this.newPasswordForm.value.password === this.newPasswordForm.value.confirmPassword) {
             this.authService.currentUser.subscribe(
-              currentUser => {
+                (currentUser: { id: any; }) => {
                 this.userService.changePass(currentUser.id, user).subscribe(() => {
                   this.toast.success({detail:"Thông báo", summary: "Đổi mật khẩu thành công!",duration: 3000,position:'br'});
                   localStorage.setItem('PASS', this.newPasswordForm.value.password);

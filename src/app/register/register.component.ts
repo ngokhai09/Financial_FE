@@ -28,9 +28,10 @@ export class RegisterComponent implements OnInit {
   register() {
     const user = this.setNewUser();
     if(this.registerForm.value.password === this.registerForm.value.confirmPassword) {
-      this.userService.register(user).subscribe(() => {
+      this.userService.register(user).subscribe((data) => {
+        console.log(data)
         this.toast.success({detail:"Thông báo", summary: "Đăng kí thành công!",duration: 3000,position:'br'})
-        this.router.navigate(['/']);
+        // this.router.navigate(['/']);
       }, err => {
         this.toast.success({detail:"Thông báo", summary: "Đăng kí thất bại!",duration: 3000,position:'br'})
         console.log(err);
@@ -42,8 +43,7 @@ export class RegisterComponent implements OnInit {
     // @ts-ignore
     const user: User = {
       username: this.registerForm.value.username,
-      password: this.registerForm.value.password,
-      confirmPassword: this.registerForm.value.password
+      password: this.registerForm.value.password
     };
     return user;
   }

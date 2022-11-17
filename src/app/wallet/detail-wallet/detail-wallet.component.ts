@@ -48,11 +48,11 @@ export class DetailWalletComponent implements OnInit {
 
   getWallet(id: number) {
     return this.walletService.findById(id).subscribe((wallet) => {
-      this.wallet = wallet;
-      this.icon = wallet.icon;
+      this.wallet = wallet.data.data[0];
+      this.icon = this.wallet.icon;
       this.updateForm = new FormGroup({
-        name: new FormControl(wallet.name),
-        moneyType: new FormControl("" + wallet.moneyType.id)
+        name: new FormControl(this.wallet.name),
+        moneyType: new FormControl("" + this.wallet.money_type_id)
       });
       if (this.wallet.id == localStorage.getItem('ID_WALLET')) {
         this.isCheck = true;
@@ -66,7 +66,7 @@ export class DetailWalletComponent implements OnInit {
 
   alertOnOff(id: number) {
     this.walletService.findById(id).subscribe((wallet) => {
-        this.wallet = wallet;
+        this.wallet = wallet.data.data[0];
         if (this.wallet.id != localStorage.getItem('ID_WALLET')) {
           Swal.fire({
             title: `<h3 style="color: #b71313">Chuyển ví</h3>`,
@@ -80,17 +80,14 @@ export class DetailWalletComponent implements OnInit {
             if (result.isConfirmed) {
               this.walletEdit = {
                 name: this.wallet.name,
-                moneyType: {
-                  id: this.wallet.moneyType.id,
-                },
+                money_type_id: this.wallet.money_type_id,
                 icon: this.icon,
-                moneyAmount: this.wallet.moneyAmount,
+                money: this.wallet.money,
                 status: 2,
-                user: {
-                  id: localStorage.getItem('ID')
-                }
+                user_id: localStorage.getItem('ID'),
+                id: this.wallet.id
               }
-              this.walletService.updateNormal(this.wallet.id, this.walletEdit).subscribe(() => {
+              this.walletService.updateNormal(localStorage.getItem('ID_WALLET'), this.walletEdit).subscribe(() => {
                 localStorage.removeItem('ID_WALLET');
                 localStorage.setItem('ID_WALLET', this.wallet.id);
                 location.reload();
@@ -98,7 +95,8 @@ export class DetailWalletComponent implements OnInit {
             }
           })
           this.walletService.findById(this.idInUse).subscribe((wallet) => {
-            this.walletInUse = wallet;
+            this.walletInUse = wallet.data.data[0];
+            console.log(this.walletInUse)
             this.walletService.updateStatus(this.walletInUse.id, this.walletInUse).subscribe(() => {
             })
           })
@@ -137,17 +135,14 @@ export class DetailWalletComponent implements OnInit {
       }).then((result) => {
         this.walletDelete = {
           name: this.wallet.name,
-          moneyType: {
-            id: this.wallet.moneyType.id,
-          },
+          money_type_id: this.wallet.money_type_id,
           icon: this.wallet.icon,
-          moneyAmount: this.wallet.moneyAmount,
+          money: this.wallet.moneyAmount,
           status: this.wallet.status,
-          user: {
-            id: localStorage.getItem('ID')
-          }
+          user_id: localStorage.getItem('ID')
+
         }
-        this.walletService.delete(this.wallet.id, this.walletDelete).subscribe(() => {
+        this.walletService.delete(this.wallet.id).subscribe(() => {
           this.toast.success({detail: 'Thông báo!', summary: "Xóa ví thành công!",duration: 3000,position:'br'});
           setInterval(() => {
             location.reload()
@@ -160,23 +155,21 @@ export class DetailWalletComponent implements OnInit {
   updateWallet() {
     this.walletEdit = {
       name: this.updateForm.value.name,
-      moneyType: {
-        id: this.updateForm.value.moneyType,
-      },
+      money_type_id: this.updateForm.value.moneyType,
       icon: this.icon,
-      moneyAmount: this.wallet.moneyAmount,
+      money: this.wallet.money,
       status: this.wallet.status,
-      user: {
-        id: localStorage.getItem('ID')
-      }
+      user_id: localStorage.getItem('ID')
     }
     console.log(this.walletEdit);
-    this.walletService.update(this.id, this.walletEdit).subscribe(() => {
+    this.walletService.update(this.id, this.walletEdit).subscribe((data) => {
+      console.log(data)
       this.toast.success({detail: "Thông báo", summary: "Sửa ví thành công!", duration: 3000, position: 'br'});
       setInterval(() => {
         location.reload()
       },180)
     }, (error) => {
+      console.log(error)
       this.toast.error({detail: "Thông báo", summary: "Sửa ví thất bại!", duration: 3000, position: 'br'});
       setInterval(() => {
         location.reload()

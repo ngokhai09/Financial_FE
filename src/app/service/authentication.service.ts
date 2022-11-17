@@ -12,11 +12,11 @@ const API_URL = environment.apiUrl;
 })
 export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<UserToken>;
-  public currentUser: Observable<UserToken>
+  public currentUser: string | null | any
   update = new EventEmitter<string>();
   constructor(private httpClient : HttpClient) {
     this.currentUserSubject = new BehaviorSubject<UserToken>(JSON.parse(<string>localStorage.getItem('currentUser')));
-    this.currentUser = this.currentUserSubject.asObservable();
+    this.currentUser = localStorage.getItem('currentUser');
   }
 
   public get currentUserValue() : UserToken {
@@ -24,8 +24,8 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string) {
-    return this.httpClient.post<any>(API_URL + 'login', {username, password})
-      .pipe(map(user => {localStorage.setItem('currentUser', JSON.stringify(user));
+    return this.httpClient.post<any>(API_URL + 'api/login', {username, password})
+      .pipe(map(user => {localStorage.setItem('currentUser', JSON.stringify(user.data));
         this.currentUserSubject.next(user);
         return user;
       }));

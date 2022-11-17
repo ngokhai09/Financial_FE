@@ -4,7 +4,7 @@ export interface Category {
   id: number;
   name: string;
   status: string;
-  note: string;
+  description: string;
   color: string;
   user: User;
 }

@@ -11,18 +11,21 @@ export class AuthGuard implements CanActivate {
     private router: Router,
     private authService: AuthenticationService
   ) {
-    this.authService.currentUser.subscribe(
-      currentUser => {
-        this.currentUser = currentUser;
-      }
-    );
+    // this.authService.currentUser.subscribe(
+    //     (currentUser: any) => {
+    //     this.currentUser = currentUser;
+    //   }
+    // );
+    this.currentUser = localStorage.getItem('currentUser');
+    console.log(this.currentUser)
+
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (!!this.currentUser) {
+    if (this.currentUser != null) {
       return true;
     } else {
-      this.router.navigate(['login'], {queryParams: {returnUrl: state.url}});
+      this.router.navigateByUrl('/');
       return false;
     }
   }

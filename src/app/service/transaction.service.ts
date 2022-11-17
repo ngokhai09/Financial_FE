@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 
-const API = 'http://localhost:8080/transactions/';
+const API = 'http://localhost:8080/api/transactions/';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class TransactionService {
   }
 
   save(transaction: any): Observable<any> {
-    return this.httpClient.post(API + 'create', transaction);
+    return this.httpClient.post(API, transaction);
   }
 
   update(id: number, transaction: any): Observable<any> {
@@ -34,22 +34,22 @@ export class TransactionService {
 
   findAllByMonth(status: any): Observable<any> {
     const id = localStorage.getItem("ID_WALLET");
-    return this.httpClient.get(API + `find-all-by-time?status=${status}&id=${id}`);
+    return this.httpClient.get(API + `find-all-by-time/${id}/${status}`);
   }
 
   findAllTransactionsIncomeFor6Months(): Observable<any> {
     const id = localStorage.getItem("ID_WALLET");
-    return this.httpClient.get(API + `find-all-income-6month/${id}`);
+    return this.httpClient.get(API + `find-all-6-month/${id}/1`);
   }
 
   findAllTransactionsExpenseFor6Months(): Observable<any> {
     const id = localStorage.getItem("ID_WALLET");
-    return this.httpClient.get(API + `find-all-expense-6month/${id}`);
+    return this.httpClient.get(API + `find-all-6-month/${id}/2`);
   }
 
   findAllTransactions(startTime: any, endTime: any, status: any, from: any, to: any): Observable<any> {
     const id = localStorage.getItem("ID_WALLET");
-    return this.httpClient.get(API + `find-all-transaction?startTime=${startTime}&endTime=${endTime}&status=${status}&from=${from}&to=${to}&id=${id}`);
+    return this.httpClient.get(API + `find-all-transaction/${id}?startTime=${startTime}&endTime=${endTime}&status=${status}&from=${from}&to=${to}`);
   }
   findAllTransactionsByCategoryID(id: any): Observable<any> {
     return this.httpClient.get(API + 'find-by-category/'+ id);

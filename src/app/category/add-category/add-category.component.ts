@@ -14,7 +14,7 @@ export class AddCategoryComponent implements OnInit {
   categoryForm = new FormGroup({
     name: new FormControl(),
     status: new FormControl(),
-    note: new FormControl(),
+    description: new FormControl(),
     color: new FormControl('#E9E612'),
   })
   color: any;
@@ -24,6 +24,7 @@ export class AddCategoryComponent implements OnInit {
               private router: Router,
               private toast : NgToastService) { }
   ngOnInit(): void {
+
   }
 
   @Output()
@@ -33,12 +34,11 @@ export class AddCategoryComponent implements OnInit {
     this.category = {
       name: this.categoryForm.value.name,
       status: this.categoryForm.value.status,
-      note: this.categoryForm.value.note,
+      description: this.categoryForm.value.description,
       color: this.categoryForm.value.color,
-      user: {
-        id: localStorage.getItem('ID')
-      }
+      user_id: parseInt(localStorage.getItem('ID') || '')
     }
+    console.log(this.category)
     this.categoryService.save(this.category).subscribe((data) => {
       this.onNewCategory.emit(data)
       this.toast.success({detail:"Thông báo", summary: "Thêm danh mục thành công!",duration: 3000,position:'br'})

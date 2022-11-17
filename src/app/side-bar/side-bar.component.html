@@ -1,46 +1,43 @@
-<nav class="sidebar" >
-  <div class="logo d-flex justify-content-between">
-    <img src="assets/img/logo.png" style="width: 150px;height:90px;overflow:hidden;margin-top: -25px">
-    <div class="sidebar_close_icon d-lg-none">
-      <i class="ti-close"></i>
-    </div>
-  </div>
-  <ul id="sidebar_menu" style="margin-top: -25px">
-    <li class="mm-active">
-      <a class="has-arrow" aria-expanded="false" routerLink="/home">
-        <i class="fa-solid fa-house"></i>
-        <span >Trang chủ</span>
-      </a>
-    </li>
-    <li class="mm-active">
-      <a class="has-arrow"  aria-expanded="false" routerLink="/profile">
-        <i class="fa-solid fa-user"></i>
-        <span>Trang cá nhân</span>
-      </a>
-    </li>
-    <li class="mm-active">
-      <a class="has-arrow" aria-expanded="false" routerLink="/wallet/{{idWallet}}">
-        <i class="fa-solid fa-wallet"></i>
-        <span>Ví</span>
-      </a>
-    </li>
-    <li class="mm-active">
-      <a class="has-arrow" aria-expanded="false" routerLink="/category">
-        <i class="fa-solid fa-boxes-stacked"></i>
-        <span>Danh mục chi tiêu</span>
-      </a>
-    </li>
-    <li class="mm-active">
-      <a class="has-arrow" aria-expanded="false">
-        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-        <span (click)="logout()">Đăng xuất</span>
-      </a>
-    </li>
-    <li class="mm-active">
-      <a class="has-arrow" href="#" aria-expanded="false" routerLink="/change-password">
-        <i class="fa-solid fa-arrows-rotate"></i>
-        <span>Đổi mật khẩu</span>
-      </a>
-    </li>
-  </ul>
+
+<nav class="sidebar" id="sidebar">
+  <img class="img rounded-circle mb-5"  src="{{image}}" style="margin-left:100px;  width: 100px;height: 100px">
+
+  <ul class="list-unstyled components mb-3">
+          <li class="mm-active">
+            <a class="has-arrow" aria-expanded="false" routerLink="/home">
+              <i class="fa-solid fa-house"></i>
+              <span >&nbsp;&nbsp;Trang chủ</span>
+            </a>
+          </li>
+          <li class="mm-active">
+            <a class="has-arrow"  aria-expanded="false" routerLink="/profile">
+              <i class="fa-solid fa-user"></i>
+              <span>&nbsp;&nbsp;Trang cá nhân</span>
+            </a>
+          </li>
+          <li class="mm-active">
+            <a class="has-arrow" aria-expanded="false" routerLink="/wallet/{{idWallet}}">
+              <i class="fa-solid fa-wallet"></i>
+              <span>&nbsp;&nbsp;Ví</span>
+            </a>
+          </li>
+          <li class="mm-active">
+            <a class="has-arrow" aria-expanded="false" routerLink="/category">
+              <i class="fa-solid fa-boxes-stacked"></i>
+              <span>&nbsp;&nbsp;Danh mục chi tiêu</span>
+            </a>
+          </li>
+          <li class="mm-active">
+            <a class="has-arrow" aria-expanded="false">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i>
+              <span (click)="logout()">&nbsp;&nbsp;Đăng xuất</span>
+            </a>
+          </li>
+          <li class="mm-active">
+            <a class="has-arrow" href="#" aria-expanded="false" routerLink="/change-password">
+              <i class="fa-solid fa-arrows-rotate"></i>
+              <span>&nbsp;&nbsp;Đổi mật khẩu</span>
+            </a>
+          </li>
+    </ul>
 </nav>

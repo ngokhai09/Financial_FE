@@ -25,9 +25,9 @@
                 <input type="date" id="date" formControlName="time"/>
               </td>
               <td style="width: 20px"></td>
-              <td class="tdTbale"><input type="number" style="border: 1px solid #f1f3f5;" placeholder="Số tiền" formControlName="totalSpent"></td>
+              <td class="tdTbale"><input type="number" style="border: 1px solid #f1f3f5;" placeholder="Số tiền" formControlName="total"></td>
               <td style="width: 20px"></td>
-              <td class="tdTbale"><input type="text" style="border: 1px solid #f1f3f5 ;" placeholder="Ghi chú" formControlName="note"></td>
+              <td class="tdTbale"><input type="text" style="border: 1px solid #f1f3f5 ;" placeholder="Ghi chú" formControlName="description"></td>
             </tr>
           </table>
         </div>
@@ -70,7 +70,7 @@
                 </div>
               </td>
               <td>
-                <p class="nowrap">{{incomeCategory.note}}</p>
+                <p class="nowrap">{{incomeCategory.description}}</p>
               </td>
               <td>
               </td>
@@ -97,7 +97,7 @@
                 </div>
               </td>
               <td>
-                <p class="nowrap">{{expenseCategory.note}}</p>
+                <p class="nowrap">{{expenseCategory.description}}</p>
               </td>
               <td>
               </td>

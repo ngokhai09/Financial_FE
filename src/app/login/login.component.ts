@@ -95,18 +95,19 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.authenticationService.login(this.loginForm.value.username, this.loginForm.value.password).pipe(first()).subscribe(data => {
-      localStorage.setItem('ACCESS_TOKEN', data.accessToken);
-      localStorage.setItem('ROLE', data.roles[0].authority);
-      localStorage.setItem('USERNAME', data.username);
+      localStorage.setItem('ROLE', data.data.roleName);
+      localStorage.setItem('USERNAME', data.data.username);
       localStorage.setItem('PASS', this.loginForm.value.password);
-      localStorage.setItem('ID', data.id);
-      if (data.roles[0].authority == "ROLE_USER") {
+      localStorage.setItem('ID', data.data.id);
+      console.log(data.data, "USER")
+      if (data.data.roleName == "USER") {
         this.userService.findById(localStorage.getItem('ID')).subscribe(data => {
-          localStorage.setItem('AVATAR', data.avatar);
+          localStorage.setItem('AVATAR', data.data.avatar);
           this.toast.success({detail: "Thông báo", summary: "Đăng nhập thành công!", duration: 3000, position: 'br'});
-          this.router.navigateByUrl('/home').then();
+          this.router.navigateByUrl('/home')
           this.walletService.findAll().subscribe(wallets => {
-            this.wallets = wallets;
+            this.wallets = wallets.data.data;
+            console.log(this.wallets)
             if (this.wallets.length == 0) {
               this.router.navigateByUrl('/create').then();
             } else if (this.wallets.length != 0) {
@@ -115,12 +116,13 @@ export class LoginComponent implements OnInit {
                   localStorage.setItem('ID_WALLET', String(this.wallets[i].id));
                 }
               }
-              location.reload();
+              this.router.navigateByUrl('/home')
             }
           })
         })
       }
     }, error => {
+      console.log(error)
       this.toast.error({detail: "Thông báo", summary: "Sai tài khoản hoặc mật khẩu!", duration: 3000, position: 'br'})
       this.router.navigate(['/']).then();
     })

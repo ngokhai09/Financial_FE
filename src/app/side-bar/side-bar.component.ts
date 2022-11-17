@@ -8,12 +8,15 @@ import Swal from "sweetalert2";
   styleUrls: ['./side-bar.component.css']
 })
 export class SideBarComponent implements OnInit {
+  image: any
   isLogin = false;
   idUser = localStorage.getItem('ID');
   idWallet = localStorage.getItem("ID_WALLET")
   constructor(private router:Router) { }
 
   ngOnInit(): void {
+    this.image = localStorage.getItem('AVATAR');
+
   }
 
   logout() {

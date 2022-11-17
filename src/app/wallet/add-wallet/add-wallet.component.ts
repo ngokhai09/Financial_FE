@@ -36,22 +36,20 @@ export class AddWalletComponent implements OnInit {
   addWallet() {
     this.wallet = {
       name: this.walletForm.value.name,
-      moneyType: {
-        id: this.walletForm.value.moneyType,
-      },
+      money_type_id: parseInt(this.walletForm.value.moneyType),
       icon: this.icon,
-      moneyAmount: 0,
+      money: 0,
       status: 1,
-      user: {
-        id: localStorage.getItem('ID')
-      }
+      user_id: parseInt(localStorage.getItem('ID') || "")
     }
     console.log(this.wallet)
     this.walletService.save(this.wallet).subscribe((data) => {
+      console.log(data)
       this.onNewWallet.emit(data)
       this.toast.success({detail:"Thông báo", summary: "Thêm ví thành công!",duration: 3000,position:'br'})
       this.router.navigate(['/wallet' + localStorage.getItem('ID_WALLET')]).then();
     }, error => {
+      console.log(error)
       this.toast.error({detail:"Thông báo", summary: "Thêm ví thất bại!",duration: 3000,position:'br'})
     })
   }

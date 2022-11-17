@@ -14,6 +14,7 @@ import {AddFirstWalletComponent} from "./login/add-first-wallet/add-first-wallet
 
 const routes: Routes = [{
   path:'home',
+  canActivate: [AuthGuard],
   component: HomeComponent
 }, {
   path: '',
@@ -23,16 +24,20 @@ const routes: Routes = [{
   component: RegisterComponent
 }, {
   path: 'profile',
+  canActivate: [AuthGuard],
+
   component: ProfileComponent
 }, {
   path: 'change-password',
   component: ChangePasswordComponent
 }, {
   path: 'wallet',
+  canActivate: [AuthGuard],
   component: ShowWalletComponent,
   loadChildren: () => import('./wallet/show-wallet/show-wallet-routing.module').then(module => module.ShowWalletRoutingModule)
 }, {
   path: 'category',
+  canActivate: [AuthGuard],
   component: ShowCategoryComponent,
 }, {
   path: 'user',
@@ -41,6 +46,7 @@ const routes: Routes = [{
   loadChildren: () => import('./user/user-routing.module').then(module => module.UserRoutingModule)
 }, {
   path: 'create',
+  canActivate: [AuthGuard],
   component: AddFirstWalletComponent,
 }];
 

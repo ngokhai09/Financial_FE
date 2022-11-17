@@ -4,8 +4,11 @@ import {Wallet} from "./wallet";
 export interface Transaction {
   id: number;
   wallet: Wallet;
-  category: Category;
-  totalSpent: number;
+  categoryName: string;
+  categoryColor: string;
+  categoryStatus: string;
+  MoneyTypeName: string;
+  total: number;
   time: string;
-  note: string;
+  description: string;
 }

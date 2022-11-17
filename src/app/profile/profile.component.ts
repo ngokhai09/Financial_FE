@@ -40,14 +40,15 @@ export class ProfileComponent implements OnInit {
 
   findById() {
     this.userService.findById(localStorage.getItem('ID')).subscribe(data => {
+      console.log(data.data)
       this.updateForm.patchValue({
-        email: data.email,
-        username: data.username,
-        address: data.address,
-        age: data.age,
-        sex: data.sex + "",
+        email: data.data.email,
+        username: data.data.username,
+        address: data.data.address,
+        age: data.data.age,
+        sex: data.data.sex + "",
       })
-      this.image = data.avatar;
+      this.image = data.data.avatar;
     }, error => {
       console.log(error)
     })
@@ -66,7 +67,7 @@ export class ProfileComponent implements OnInit {
       this.toast.success({detail:"Thông báo", summary: "Cập nhật trang cá nhân thành công!",duration: 3000,position:'br'})
       localStorage.setItem('USERNAME', this.user.username);
       localStorage.setItem('AVATAR', this.user.avatar);
-      this.router.navigateByUrl("/home")
+      this.router.navigateByUrl("/profile")
     }, error => {
       console.log(error)
     })

@@ -15,8 +15,8 @@ export class AddTransactionComponent implements OnInit {
 
   transactionForm = new FormGroup({
     time: new FormControl(),
-    totalSpent: new FormControl(),
-    note: new FormControl(),
+    total: new FormControl(),
+    description: new FormControl(),
   })
 
   category: any;
@@ -38,7 +38,7 @@ export class AddTransactionComponent implements OnInit {
 
   showExpenseCategory() {
     this.categoryService.findByStatus(2).subscribe((categories) => {
-      this.expenseCategories = categories;
+      this.expenseCategories = categories.data.data;
     }, e => {
       console.log(e);
     })
@@ -46,7 +46,7 @@ export class AddTransactionComponent implements OnInit {
 
   showIncomeCategory() {
     this.categoryService.findByStatus(1).subscribe((categories) => {
-      this.incomeCategories = categories;
+      this.incomeCategories = categories.data.data;
     }, e => {
       console.log(e);
     })
@@ -54,15 +54,11 @@ export class AddTransactionComponent implements OnInit {
 
   addTransaction() {
     this.transaction = {
-      category: {
-        id: this.category.id,
-      },
+      category_id: this.category.id,
       time: this.transactionForm.value.time,
-      totalSpent: this.transactionForm.value.totalSpent,
-      note: this.transactionForm.value.note,
-      wallet: {
-        id: localStorage.getItem('ID_WALLET')
-      }
+      total: this.transactionForm.value.total,
+      description: this.transactionForm.value.description,
+      wallet_id: parseInt(localStorage.getItem('ID_WALLET') || "")
     }
     console.log(this.transaction);
     this.transactionService.save(this.transaction).subscribe(() => {
@@ -75,9 +71,10 @@ export class AddTransactionComponent implements OnInit {
 
   getCategory(id: number) {
     this.categoryService.findById(id).subscribe(category => {
-      this.category = category;
-      this.nameCategory = category.name;
-      this.color = category.color;
+      console.log(category.data)
+      this.category = category.data;
+      this.nameCategory = this.category.name;
+      this.color = this.category.color;
     })
   }
 }

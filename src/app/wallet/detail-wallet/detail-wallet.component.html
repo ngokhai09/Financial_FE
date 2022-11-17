@@ -8,17 +8,17 @@
       </div>
       <div class="message_content_view red_border">
         <div class="message_preview_thumb">
-          <img src="{{wallet.icon}}" alt="">
+          <img src="{{wallet?.icon}}" alt="">
         </div>
         <p>
           <br>
-          Tên ví :{{wallet.name}}
+          Tên ví :{{wallet?.name}}
           <br>
           <span>
-            Loại tiền : {{wallet.moneyType.name}}
+            Loại tiền : {{wallet?.moneyTypeName}}
             <br>
           </span>
-          Số dư : {{wallet.moneyAmount}}
+          Số dư : {{wallet?.money}}
         </p>
         <br>
         <div class="form-check form-switch">

@@ -36,21 +36,17 @@ export class AddFirstWalletComponent implements OnInit {
   addFirstWallet() {
     this.firstWallet = {
       name: this.firstWalletForm.value.name,
-      moneyType: {
-        id: this.firstWalletForm.value.moneyType,
-      },
+      money_type_id: parseInt(this.firstWalletForm.value.moneyType),
       icon: this.icon,
-      moneyAmount: 0,
+      money: 0,
       status: 2,
-      user: {
-        id: localStorage.getItem('ID')
-      }
+      user_id: parseInt(localStorage.getItem('ID') || "")
     }
     console.log(this.firstWallet)
     this.walletService.save(this.firstWallet).subscribe((data) => {
       this.toast.success({detail:"Thông báo", summary: "Thêm ví thành công!",duration: 3000,position:'br'})
       this.walletService.findAll().subscribe(wallets => {
-        this.wallets = wallets;
+        this.wallets = wallets.data.data;
         if (this.wallets.length != 0) {
           for (let i = 0; i < this.wallets.length; i++) {
             if (this.wallets[i].status == 2) {
